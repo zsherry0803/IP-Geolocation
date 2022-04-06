@@ -2,6 +2,7 @@ package com.ip.demo.controller;
 
 import com.ip.demo.model.IpResponse;
 import com.ip.demo.repository.IpRepository;
+import com.ip.demo.service.IpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class IpController {
     @Autowired
-    IpRepository ipRepository;
+    IpService ipService;
 
     @GetMapping
     public String test(){
@@ -22,16 +23,7 @@ public class IpController {
     }
     @GetMapping("/{ip}")
     public ResponseEntity<IpResponse> getIpDetail(@PathVariable String ip) {
-        IpResponse ipResponse= new IpResponse();
-        if (ipRepository.existsById(ip)) {
-            ipResponse = ipRepository.findById(ip).orElseThrow();
-        } else {
-            String url = "http://ip-api.com/json/" + ip;
-            RestTemplate restTemplate = new RestTemplate();
-            IpResponse result = restTemplate.getForObject(url, IpResponse.class);
-            ipRepository.saveAndFlush(result);
-            ipResponse = result;
-        }
+        IpResponse ipResponse= ipService.getIpDetailByQuery(ip);
         return new ResponseEntity<IpResponse>(ipResponse, HttpStatus.OK);
     }
 }

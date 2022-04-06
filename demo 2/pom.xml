@@ -14,6 +14,7 @@
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
+		<cache2k-version>2.6.1.Final</cache2k-version>
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>
@@ -65,6 +66,24 @@
 			<version>1.4.200</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.cache2k</groupId>
+			<artifactId>cache2k-api</artifactId>
+			<version>${cache2k-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.cache2k</groupId>
+			<artifactId>cache2k-core</artifactId>
+			<version>${cache2k-version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.cache2k</groupId>
+			<artifactId>cache2k-spring</artifactId>
+			<version>${cache2k-version}</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
